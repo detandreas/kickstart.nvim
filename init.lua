@@ -434,7 +434,7 @@ do
   -- Load the colorscheme here.
   -- Like many other themes, this one has different styles, and you could load
   -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-  vim.cmd.colorscheme 'tokyonight-night'
+  vim.cmd.colorscheme 'tokyonight-moon'
 
   -- Highlight todo, notes, etc in comments
   vim.pack.add { gh 'folke/todo-comments.nvim' }
@@ -736,6 +736,9 @@ do
     -- clangd = {},
     -- gopls = {},
     pyright = {},
+    ruff = {
+      on_attach = function(client) client.server_capabilities.hoverProvider = false end,
+    },
     -- tsc = {},
     --
     -- Some languages (like rust) have entire language plugins that can be useful:
@@ -842,8 +845,7 @@ do
     formatters_by_ft = {
       -- rust = { 'rustfmt' },
       -- Conform can also run multiple formatters sequentially
-      -- python = { "isort", "black" },
-      --
+      python = { "ruff_fix", "ruff_organize_imports", "ruff_format",  },
       -- You can use 'stop_after_first' to run the first available formatter from the list
       -- javascript = { "prettierd", "prettier", stop_after_first = true },
     },
@@ -948,7 +950,8 @@ do
   vim.pack.add { { src = gh 'nvim-treesitter/nvim-treesitter', version = 'main' } }
 
   -- Ensure basic parsers are installed
-  local parsers = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc', 'python', 'java', 'json', 'yaml', 'toml' }
+  local parsers =
+    { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc', 'python', 'java', 'json', 'yaml', 'toml' }
   require('nvim-treesitter').install(parsers)
 
   ---@param buf integer
