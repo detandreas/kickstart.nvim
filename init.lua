@@ -736,6 +736,7 @@ do
     -- clangd = {},
     -- gopls = {},
     pyright = {},
+    jdtls = {},
     ruff = {
       on_attach = function(client) client.server_capabilities.hoverProvider = false end,
     },
@@ -807,6 +808,7 @@ do
   local ensure_installed = vim.tbl_keys(servers or {})
   vim.list_extend(ensure_installed, {
     -- You can add other tools here that you want Mason to install
+    'google-java-format',
   })
 
   require('mason-tool-installer').setup { ensure_installed = ensure_installed }
@@ -845,7 +847,8 @@ do
     formatters_by_ft = {
       -- rust = { 'rustfmt' },
       -- Conform can also run multiple formatters sequentially
-      python = { "ruff_fix", "ruff_organize_imports", "ruff_format",  },
+      python = { "ruff_fix", "ruff_organize_imports", "ruff_format",},
+      java = { "google-java-format",}
       -- You can use 'stop_after_first' to run the first available formatter from the list
       -- javascript = { "prettierd", "prettier", stop_after_first = true },
     },
